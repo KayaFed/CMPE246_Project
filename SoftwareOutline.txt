@@ -1,0 +1,15 @@
+OUTLINE FOR ALL SOFTWARE SCRIPTS IN THE PROJECT
+SOFTWARE REQUIREMENTS:
+- Read all reed switch states on all 64 board spaces
+- Update led states at all 64 board spaces
+- Keep track of all piece positions on the board
+
+LedController
+
+ReedReader
+
+BoardTracker
+
+ChessEngineInterface
+
+Main???
