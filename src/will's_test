@@ -1,1 +1,53 @@
+import time
+from rpi_ws281x import PixelStrip, Color
 
+LED_COUNT = 3
+LED_PIN = 18
+LED_FREQ_HZ = 800000
+LED_DMA = 10
+LED_BRIGHTNESS = 40
+LED_INVERT = False
+LED_CHANNEL = 0
+
+strip = PixelStrip(
+    LED_COUNT,
+    LED_PIN,
+    LED_FREQ_HZ,
+    LED_DMA,
+    LED_INVERT,
+    LED_BRIGHTNESS,
+    LED_CHANNEL
+)
+strip.begin()
+
+def clear():
+    for i in range(LED_COUNT):
+        strip.setPixelColor(i, Color(0, 0, 0))
+    strip.show()
+
+def show_one(index, r, g, b):
+    clear()
+    strip.setPixelColor(index, Color(r, g, b))
+    strip.show()
+
+try:
+    clear()
+    time.sleep(1)
+
+    while True:
+        show_one(0, 255, 0, 0)
+        time.sleep(1)
+
+        show_one(1, 0, 255, 0)
+        time.sleep(1)
+
+        show_one(2, 0, 0, 255)
+        time.sleep(1)
+
+        clear()
+        time.sleep(1)
+
+except KeyboardInterrupt:
+    print("Stopping")
+finally:
+    clear()
