@@ -2,17 +2,23 @@ import os, sys
 print("CWD:", os.getcwd())
 print("PATH:", sys.path)
 
+from config import LED_PINS, USE_HARDWARE
+import config  # for debugging
 
-from config import LED_PINS
-from mock_led_controller import MockLEDController as LEDController
+# Choose LED controller based on hardware/simulation mode
+if USE_HARDWARE:
+    from led_controller import LEDController
+else:
+    from mock_led_controller import MockLEDController as LEDController
+
 from game import Game
 from engine import ChessEngine
 from time import sleep
-import config  # for debugging
 
 
 def main():
-    print("Starting Chess Board System (Simulation Mode)...")
+    mode = "HARDWARE" if USE_HARDWARE else "SIMULATION"
+    print(f"Starting Chess Board System ({mode} Mode)...")
 
     # Debug: confirm config file and LED_PINS
     print("Loaded config from:", config.__file__)
@@ -28,7 +34,7 @@ def main():
             move = engine.get_best_move()
             print("Engine move:", move)
 
-            # Highlight move on board (simulated LEDs)
+            # Highlight move on board (LEDs)
             game.highlight_move(move)
 
             # Optional: print board state
