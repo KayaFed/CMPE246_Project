@@ -1,16 +1,19 @@
 from config import LED_PINS, USE_HARDWARE
+from time import sleep
 
 if USE_HARDWARE:
     from led_controller import LEDController
 else:
     from mock_led_controller import MockLEDController as LEDController
 
-from time import sleep
-
 
 def main():
     print("Running LED Test Suite...")
     controller = LEDController(LED_PINS)
+
+    print("Test: Individual LED")
+    for i in range(len(LED_PINS)):
+        controller.test_single(i, delay=0.3)
 
     print("Test 1: All LEDs on/off")
     controller.test_all()
